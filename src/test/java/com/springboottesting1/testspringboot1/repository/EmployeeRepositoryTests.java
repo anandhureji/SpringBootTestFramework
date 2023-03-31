@@ -77,6 +77,27 @@ public class EmployeeRepositoryTests {
         Assertions.assertThat(empEmail).isNotNull();
     }
 
+    @Test
+    @DisplayName("Junit test cases for updated employee")
+    public void givenEmployeeDetails_whenUpdatesEmployee_thenReturnUpdatedEmployee(){
+
+        Employee employee1 = Employee.builder()
+                .firstName("Anandhu")
+                .lastName("Reji")
+                .email("anandhureji33@gmail.com")
+                .build();
+
+        employeeRepository.save(employee1);
+
+        Employee employee = employeeRepository.findById(employee1.getId()).get();
+        employee.setEmail("abcd@gmail.com");
+        Employee updatedEmployee = employeeRepository.save(employee);
+
+        Assertions.assertThat(updatedEmployee.getEmail()).isEqualTo("abcd@gmail.com");
+
+
+    }
+
 
 
 

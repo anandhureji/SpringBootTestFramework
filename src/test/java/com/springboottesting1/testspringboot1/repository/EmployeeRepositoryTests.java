@@ -60,5 +60,24 @@ public class EmployeeRepositoryTests {
 
     }
 
+    @Test
+    @DisplayName("Junit test cases for findByEmail_id")
+    public void givenEmployeeEmail_whenFindByEmail_thenReturnEmployeeEmail(){
+
+        Employee employee1 = Employee.builder()
+                .firstName("Anandhu")
+                .lastName("Reji")
+                .email("anandhureji33@gmail.com")
+                .build();
+
+        employeeRepository.save(employee1);
+
+        Employee empEmail = employeeRepository.findByEmail(employee1.getEmail()).get();
+
+        Assertions.assertThat(empEmail).isNotNull();
+    }
+
+
+
 
 }

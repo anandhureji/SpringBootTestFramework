@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.util.List;
+import java.util.Optional;
 
 @DataJpaTest
 public class EmployeeRepositoryTests {
@@ -94,6 +95,50 @@ public class EmployeeRepositoryTests {
         Employee updatedEmployee = employeeRepository.save(employee);
 
         Assertions.assertThat(updatedEmployee.getEmail()).isEqualTo("abcd@gmail.com");
+
+
+    }
+
+
+    @Test
+    @DisplayName("Junit test cases for delete employeeby id")
+    public void givenEmployeeObject_whenDelete_thenRemoveEmployee(){
+
+        Employee employee1 = Employee.builder()
+                .firstName("Anandhu")
+                .lastName("Reji")
+                .email("anandhureji33@gmail.com")
+                .build();
+
+        employeeRepository.save(employee1);
+
+        employeeRepository.delete(employee1);
+
+        Optional<Employee> employee = employeeRepository.findById(employee1.getId());
+
+        Assertions.assertThat(employee).isEmpty();
+
+    }
+
+    @Test
+    @DisplayName("Junit test cases for find by JPQL query")
+    public void givenEmployeeDetails_whenFindByJPQL_thenReturnFirstNameandLastName(){
+
+        Employee employee1 = Employee.builder()
+                .firstName("Anandhu")
+                .lastName("Reji")
+                .email("anandhureji33@gmail.com")
+                .build();
+
+        employeeRepository.save(employee1);
+
+        String firstName="Anandhu";
+        String lastName="Reji";
+
+        Employee savedEmployee = employeeRepository.findByJPQL(firstName,lastName);
+
+        Assertions.assertThat(savedEmployee).isNotNull();
+
 
 
     }

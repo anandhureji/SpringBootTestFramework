@@ -144,6 +144,30 @@ public class EmployeeRepositoryTests {
     }
 
 
+    @Test
+    public void givenEmployeeDetails_whenFindByJPQLBYName_thenReturnEmployeeDetails(){
+        Employee employee1 = Employee.builder()
+                .firstName("Anandhu")
+                .lastName("Reji")
+                .email("anandhureji33@gmail.com")
+                .build();
+
+        employeeRepository.save(employee1);
+
+
+        String firstName="Anandhu";
+        String lastName="Reji";
+
+        Employee savedEmployee = employeeRepository.findByJPQL(firstName,lastName);
+
+        Assertions.assertThat(savedEmployee).isNotNull();
+
+
+
+
+    }
+
+
 
 
 }

@@ -5,6 +5,7 @@ import com.springboottesting1.testspringboot1.exception.ResourceNotFoundExceptio
 import com.springboottesting1.testspringboot1.modal.Employee;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
@@ -18,6 +19,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.List;
 import java.util.Optional;
 
 @ExtendWith(MockitoExtension.class)
@@ -76,12 +78,26 @@ public class EmployeeServiceTests {
         });
 
         verify(employeeRepository,never()).save(any(Employee.class));
+    }
 
 
+    @DisplayName("Junit test cases for getAllEMployees")
+    @Test
+    public void givenEmployeesList_whenGetAllEMployees_thenReturnEMployeeList(){
 
+        Employee employee1 = Employee.builder()
+                .id(2L)
+                .firstName("Arjun")
+                .lastName("Reji")
+                .email("arjun@gmail.com")
+                .build();
 
+        given(employeeRepository.findAll()).willReturn(List.of(employee,employee1));
 
+        List<Employee> employeeList = employeeService.getAlEmployee();
 
+        Assertions.assertThat(employeeList).isNotNull();
+        Assertions.assertThat(employeeList.size()).isEqualTo(2);
 
     }
 }

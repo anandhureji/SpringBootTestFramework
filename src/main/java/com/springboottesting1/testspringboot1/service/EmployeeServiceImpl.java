@@ -11,8 +11,13 @@ import java.util.Optional;
 @Service
 public class EmployeeServiceImpl implements EmployeeService{
 
-    @Autowired
-    EmployeeRepository employeeRepository;
+
+    private EmployeeRepository employeeRepository;
+
+    public EmployeeServiceImpl(EmployeeRepository employeeRepository) {
+        this.employeeRepository=employeeRepository;
+    }
+
     @Override
     public Employee saveEmployee(Employee employee) {
         Optional<Employee> savedeEmployee = employeeRepository.findByEmail(employee.getEmail());

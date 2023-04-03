@@ -121,4 +121,18 @@ public class EmployeeServiceTests {
         Assertions.assertThat(employeeList.size()).isEqualTo(0);
 
     }
+
+    @DisplayName("Junit test cases for findEmployeeById using mockito")
+    @Test
+    public void givenEmployeeID_whenFindById_thenReturnEmployee(){
+
+        given(employeeRepository.findById(1L)).willReturn(Optional.of(employee));
+
+        Optional<Employee> employee1 = Optional.of(employeeService.getEmployeeById(employee.getId()).get());
+
+        Assertions.assertThat(employee1).isNotNull();
+
+
+
+    }
 }

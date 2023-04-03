@@ -135,4 +135,23 @@ public class EmployeeServiceTests {
 
 
     }
+
+
+    @DisplayName("Junit test cases for UpdateEmployee Method")
+    @Test
+    public void givenEmployee_whenUpdatesEmployee_thenReturnUpdatedEmployee(){
+        //given
+        given(employeeRepository.save(employee)).willReturn(employee);
+        employee.setEmail("anandhureji33@gmail.com");
+        employee.setLastName("Reji k");
+
+        //when
+        Employee updatedEmployee = employeeService.updateEmployee(employee);
+
+        //then
+        Assertions.assertThat(updatedEmployee.getEmail()).isEqualTo("anandhureji33@gmail.com");
+        Assertions.assertThat(updatedEmployee.getLastName()).isEqualTo("Reji k");
+
+
+    }
 }
